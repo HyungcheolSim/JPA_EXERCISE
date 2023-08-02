@@ -22,6 +22,7 @@ import me.shc.jpa.common.Timestamp;
 import me.shc.jpa.emotion.ThreadEmotion;
 import me.shc.jpa.mention.ThreadMention;
 import me.shc.jpa.user.User;
+import org.hibernate.annotations.DynamicInsert;
 
 // lombok
 @Getter
@@ -29,10 +30,12 @@ import me.shc.jpa.user.User;
 
 // jpa
 @Entity
+@DynamicInsert
 public class Thread extends Timestamp {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  //@GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   @Column(name = "id", nullable = false)
   private Long id;
 

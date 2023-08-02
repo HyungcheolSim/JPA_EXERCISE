@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.shc.jpa.channel.Channel;
+import me.shc.jpa.common.Timestamp;
 import me.shc.jpa.user.User;
 
 // lombok
@@ -17,13 +18,13 @@ import me.shc.jpa.user.User;
 
 // jpa
 @Entity
-public class UserChannel {
+public class UserChannel extends Timestamp {
 
   /**
    * 컬럼 - 연관관계 컬럼을 제외한 컬럼을 정의합니다.
    */
   @EmbeddedId
-  private UserChannelId userChannelId;
+  private UserChannelId userChannelId = new UserChannelId();
 
 
   /**
@@ -33,6 +34,14 @@ public class UserChannel {
   public UserChannel(User user, Channel channel) {
     this.user = user;
     this.channel = channel;
+    this.userChannelId = getUserChannelId(user, channel);
+  }
+
+  private UserChannelId getUserChannelId(User user, Channel channel) {
+    var id = new UserChannelId();
+    id.setUserId(user.getId());
+    id.setChannelId(channel.getId());
+    return id;
   }
 
   /**
