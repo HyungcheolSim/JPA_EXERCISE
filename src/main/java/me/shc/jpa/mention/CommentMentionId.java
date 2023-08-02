@@ -1,4 +1,4 @@
-package me.shc.jpa;
+package me.shc.jpa.mention;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -12,16 +12,16 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
-public class MentionId implements Serializable {
+public class CommentMentionId implements Serializable {
 
   @Serial
-  private static final long serialVersionUID = 932813899396136126L;
+  private static final long serialVersionUID = 932813812396136126L;
 
   @Column(name = "user_id")
   private Long userId;
 
-  @Column(name = "thread_id")
-  private Long threadId;
+  @Column(name = "comment_id")
+  private Long commentId;
 
   @Override
   public boolean equals(Object o) {
@@ -31,13 +31,13 @@ public class MentionId implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    MentionId mentionId = (MentionId) o;
-    return Objects.equals(getUserId(), mentionId.getUserId()) && Objects.equals(getThreadId(),
-        mentionId.getThreadId());
+    CommentMentionId mentionId = (CommentMentionId) o;
+    return Objects.equals(getUserId(), mentionId.getUserId()) && Objects.equals(getCommentId(),
+        mentionId.getCommentId());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getUserId(), getThreadId());
+    return Objects.hash(getUserId(), getCommentId());
   }
 }

@@ -15,6 +15,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.shc.jpa.common.Timestamp;
 import me.shc.jpa.thread.Thread;
 import me.shc.jpa.user.User;
 import me.shc.jpa.userChannel.UserChannel;
@@ -26,7 +27,7 @@ import me.shc.jpa.userChannel.UserChannel;
 
 // jpa
 @Entity
-public class Channel {
+public class Channel extends Timestamp {
 
   /**
    * 컬럼 - 연관관계 컬럼을 제외한 컬럼을 정의합니다.
@@ -81,4 +82,17 @@ public class Channel {
   /**
    * 서비스 메소드 - 외부에서 엔티티를 수정할 메소드를 정의합니다. (단일 책임을 가지도록 주의합니다.)
    */
+  /**
+   * 라이프 사이클 메소드
+   */
+  /*@PrePersist
+  public void prePersist() {
+    super.updateModifiedAt();
+    super.updateCreatedAt();
+  }
+
+  @PreUpdate
+  public void PreUpdate() {
+    super.updateModifiedAt();
+  }*/
 }

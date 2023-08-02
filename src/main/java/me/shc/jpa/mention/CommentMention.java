@@ -1,4 +1,4 @@
-package me.shc.jpa;
+package me.shc.jpa.mention;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
@@ -9,7 +9,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.shc.jpa.thread.Thread;
+import me.shc.jpa.comment.Comment;
+import me.shc.jpa.common.Timestamp;
 import me.shc.jpa.user.User;
 
 @Getter
@@ -17,38 +18,38 @@ import me.shc.jpa.user.User;
 
 // jpa
 @Entity
-public class Mention {
+public class CommentMention extends Timestamp {
 
   /**
    * 컬럼 - 연관관계 컬럼을 제외한 컬럼을 정의합니다.
    */
   @EmbeddedId
   @Column(insertable = false, updatable = false)
-  private MentionId mentionId;
+  private ThreadMentionId threadMentionId;
 
   /**
    * 컬럼 - 연관관계 컬럼을 제외한 컬럼을 정의합니다.
+   */
+
+  /**
+   * 생성자 - 약속된 형태로만 생성가능하도록 합니다.
+   */
+  @Builder
+  public CommentMention(User user, Comment comment) {
+    this.user = user;
+    this.comment = comment;
+  }
+
+  /**
+   * 연관관계 - Foreign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의합니다.
    */
   @ManyToOne
   @MapsId("user_id")
   User user;
 
   @ManyToOne
-  @MapsId("thread_id")
-  Thread thread;
-
-  /**
-   * 생성자 - 약속된 형태로만 생성가능하도록 합니다.
-   */
-  @Builder
-  public Mention(User user, Thread thread) {
-    this.user = user;
-    this.thread = thread;
-  }
-
-  /**
-   * 연관관계 - Foreign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의합니다.
-   */
+  @MapsId("comment_id")
+  Comment comment;
 
   /**
    * 연관관계 편의 메소드 - 반대쪽에는 연관관계 편의 메소드가 없도록 주의합니다.
