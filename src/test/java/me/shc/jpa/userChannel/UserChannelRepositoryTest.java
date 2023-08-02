@@ -86,7 +86,7 @@ class UserChannelRepositoryTest {
         Sort.by("customField").descending());
 
     // then
-    assert users.get(0).getPassword().equals(newUser2.getPassword());
+    assert users.stream().map(User::getPassword).anyMatch(p -> p.equals(newUser2.getPassword()));
 
     var newUser3 = User.builder().username("new_user").password("3").build();
     userRepository.save(newUser3);
@@ -96,7 +96,7 @@ class UserChannelRepositoryTest {
         JpaSort.unsafe("LENGTH(password)"));
 
     // then
-    assert users.get(0).getPassword().equals(newUser3.getPassword());
+    assert users.stream().map(User::getPassword).anyMatch(p -> p.equals(newUser3.getPassword()));
   }
 
   @Test

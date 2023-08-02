@@ -3,6 +3,7 @@ package me.shc.jpa.mention;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import lombok.AccessLevel;
@@ -25,11 +26,7 @@ public class CommentMention extends Timestamp {
    */
   @EmbeddedId
   @Column(insertable = false, updatable = false)
-  private ThreadMentionId threadMentionId;
-
-  /**
-   * 컬럼 - 연관관계 컬럼을 제외한 컬럼을 정의합니다.
-   */
+  private CommentMentionId commentMentionId = new CommentMentionId();
 
   /**
    * 생성자 - 약속된 형태로만 생성가능하도록 합니다.
@@ -45,10 +42,12 @@ public class CommentMention extends Timestamp {
    */
   @ManyToOne
   @MapsId("user_id")
+  @JoinColumn(name = "user_id")
   User user;
 
   @ManyToOne
   @MapsId("comment_id")
+  @JoinColumn(name = "comment_id")
   Comment comment;
 
   /**

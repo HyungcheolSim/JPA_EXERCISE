@@ -80,7 +80,8 @@ public class UserRepositoryTest {
     // then dynamic projection
     var userProfiles2 = userRepository.findByProfileImageUrlStartingWith("http", UserProfile.class);
     System.out.println("dynamic projection : ");
-    userProfiles2.forEach(userInfo -> System.out.println(userInfo.getProfileImageUrl()));
+    userProfiles2.forEach(userInfo -> System.out.println(
+        userInfo.getUsername() + " " + userInfo.getProfileImageUrl()));
     assert !userProfiles2.isEmpty();
   }
 

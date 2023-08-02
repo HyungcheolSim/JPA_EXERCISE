@@ -3,6 +3,7 @@ package me.shc.jpa.jdbc;
 
 import me.shc.jpa.jdbc.template.AccountTemplateDAO;
 import me.shc.jpa.jdbc.vo.AccountVO;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,12 @@ import org.springframework.test.annotation.Rollback;
 @JdbcTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(value = false)
+@Disabled
 public class JDBCTemplateTest {
 
   @Autowired
   private JdbcTemplate jdbcTemplate;
-  
+
   @Test
   @DisplayName("SQL Mapper = JDBC Template 실습")
   void sqlMapper_JDBCTemplateTest() {

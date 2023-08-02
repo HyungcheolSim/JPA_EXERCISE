@@ -2,6 +2,7 @@ package me.shc.jpa.mention;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import lombok.AccessLevel;
@@ -33,25 +34,19 @@ public class ThreadMention extends Timestamp {
   public ThreadMention(User user, Thread thread) {
     this.user = user;
     this.thread = thread;
-    this.threadMentionId = getThreadMentionId(user, thread);
-  }
-
-  private static ThreadMentionId getThreadMentionId(User user, Thread thread) {
-    var id = new ThreadMentionId();
-    id.setUserId(user.getId());
-    id.setThreadId(thread.getId());
-    return id;
   }
 
   /**
    * 연관관계 - Foreign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의합니다.
    */
   @ManyToOne
-  @MapsId("user_id")
+  @MapsId("userId")
+  @JoinColumn(name = "user_id")
   User user;
 
   @ManyToOne
-  @MapsId("thread_id")
+  @MapsId("threadId")
+  @JoinColumn(name = "thread_id")
   Thread thread;
 
   /**

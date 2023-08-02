@@ -2,6 +2,7 @@ package me.shc.jpa.userChannel;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import lombok.AccessLevel;
@@ -34,25 +35,19 @@ public class UserChannel extends Timestamp {
   public UserChannel(User user, Channel channel) {
     this.user = user;
     this.channel = channel;
-    this.userChannelId = getUserChannelId(user, channel);
-  }
-
-  private UserChannelId getUserChannelId(User user, Channel channel) {
-    var id = new UserChannelId();
-    id.setUserId(user.getId());
-    id.setChannelId(channel.getId());
-    return id;
   }
 
   /**
    * 연관관계 - Foreign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의합니다.
    */
   @ManyToOne
-  @MapsId("user_id")
+  @MapsId("userId")
+  @JoinColumn(name = "user_id")
   User user;
 
   @ManyToOne
-  @MapsId("channel_id")
+  @MapsId("channelId")
+  @JoinColumn(name = "channel_id")
   Channel channel;
 
 /**
